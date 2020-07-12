@@ -69,4 +69,8 @@ export class BookSearchComponent implements OnInit {
       this.store.dispatch(clearSearch());
     }
   }
+  AutoSerach(serachCriteria: any) {
+    this.searchForm.controls.term.setValue(serachCriteria.target.value);
+    this.searchBooks();
+  }
 }
