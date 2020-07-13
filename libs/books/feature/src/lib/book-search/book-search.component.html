@@ -31,7 +31,8 @@
           <div><strong>Author:</strong> {{ b.authors.join(',') }}</div>
           <div><strong>Publisher:</strong> {{ b.publisher }}</div>
           <div>
-            <strong>Published:</strong> {{ formatDate(b.publishedDate) }}
+            <strong>Published:</strong> {{ formatDate(b.publishedDate)
+            }}{{ b.isFinished }}
           </div>
           <p [innerHTML]="b.description"></p>
           <div>
@@ -42,7 +43,7 @@
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
             >
-              Want to Read
+              {{ b.isFinished ? 'Finished' : ' Want to Read' }}
             </button>
           </div>
         </div>

@@ -3,7 +3,8 @@ import { Store } from '@ngrx/store';
 import {
   getReadingList,
   removeFromReadingList,
-  UndoremoveFromReadingList
+  UndoremoveFromReadingList,
+  markedAsFinished
 } from '@tmo/books/data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -25,5 +26,9 @@ export class ReadingListComponent {
     snackBarRef.onAction().subscribe(() => {
       this.store.dispatch(UndoremoveFromReadingList({ item }));
     });
+  }
+
+  finishReadingList(item) {
+    this.store.dispatch(markedAsFinished({ item }));
   }
 }

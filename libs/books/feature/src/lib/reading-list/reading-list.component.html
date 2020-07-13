@@ -7,9 +7,20 @@
       <strong class="reading-list-item--details--title">{{ b.title }}</strong>
       <div class="reading-list-item--details--author">
         {{ b.authors.join(',') }}
+        <strong>{{ b.finishedDate }}</strong>
       </div>
     </div>
-    <div>
+    <div style="display: block;">
+      <button
+        mat-icon-button
+        color="success"
+        [attr.aria-label]="'Mark ' + b.title + ' As Finshed'"
+        (click)="finishReadingList(b)"
+        title="Mark as Finished"
+      >
+        <mat-icon>done</mat-icon>
+      </button>
+
       <button
         mat-icon-button
         color="warn"

@@ -1,3 +1,4 @@
+import { Action } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { fetch, optimisticUpdate } from '@nrwl/angular';
@@ -73,6 +74,29 @@ export class ReadingListEffects implements OnInitEffects {
     )
   );
 
+  markAsFinsih$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReadingListActions.markedAsFinished),
+      optimisticUpdate({
+        run: ({ item }) => {
+          return this.http
+            .put(`/api/reading-list/${item['bookId']}/finished`, item)
+            .pipe(
+              map(() =>
+                ReadingListActions.confirmedMarkAsFinshed({
+                  item
+                })
+              )
+            );
+        },
+        undoAction: ({ item }) => {
+          return ReadingListActions.failedMArkAsFinshed({
+            item
+          });
+        }
+      })
+    )
+  );
   ngrxOnInitEffects() {
     return ReadingListActions.loadReadingList();
   }
